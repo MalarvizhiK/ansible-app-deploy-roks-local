@@ -49,7 +49,7 @@ localhost                  : ok=4    changed=2    unreachable=0    failed=0    s
 4. List all pods created:   
 
 ```
-malark@Malars-MacBook-Pro ansible-app-deploy-roks % kubectl get pods -n default         
+malark@Malars-MacBook-Pro ansible-app-deploy-roks-local % kubectl get pods -n default         
 NAME                                   READY   STATUS    RESTARTS   AGE
 app-lb-deployment-788d8b8454-4mxbj     1/1     Running   0          8s
 app-lb-deployment-788d8b8454-6m49z     1/1     Running   0          8s
@@ -59,7 +59,7 @@ app-lb-deployment-788d8b8454-w6gmt     1/1     Running   0          8s
 5. List all services: 
 
 ```
-malark@Malars-MacBook-Pro ansible-app-deploy-roks % kubectl get svc            
+malark@Malars-MacBook-Pro ansible-app-deploy-roks-local % kubectl get svc            
 NAME                           TYPE           CLUSTER-IP       EXTERNAL-IP                            PORT(S)          AGE
 app-lb-service                 LoadBalancer   172.21.13.5      ad5b428b-us-south.lb.appdomain.cloud   8000:32321/TCP   55s
 
@@ -72,6 +72,6 @@ openshift-oauth-apiserver      ClusterIP      172.21.13.39     <none>           
 6. Run the application:  
 
 ```
-malark@Malars-MacBook-Pro ansible-app-deploy-roks % curl ad5b428b-us-south.lb.appdomain.cloud:8000
+malark@Malars-MacBook-Pro ansible-app-deploy-roks-local % curl ad5b428b-us-south.lb.appdomain.cloud:8000
 Hello World! Server is 172.17.25.223%     
 ```
