@@ -1,0 +1,25 @@
+- name: Create Web Application
+  k8s:
+    api_version: v1
+    namespace: default
+    definition:
+      kind: Deployment
+      metadata:
+        name: app-lb-deployment
+      spec:
+        replicas: 3
+        selector:
+          matchLabels:
+            app: appflasknode
+        template:
+          metadata:
+            labels:
+              app: appflasknode
+          spec:
+            containers:
+              - name: appflasknode
+                image: us.icr.io/malar-ns/my-python-app:latest
+                ports:
+                  - containerPort: 8000
+                imagePullPolicy: Always
+
