@@ -105,7 +105,7 @@ resource "ibm_is_vpn_gateway" "VPNClientGateway" {
   resource_group = data.ibm_resource_group.group.id
   mode = "policy"
   provisioner "local-exec" {
-    command = "sleep 120"
+    command = "sleep 180"
   }
 }
 
@@ -115,7 +115,7 @@ resource "ibm_is_vpn_gateway" "VPNPeerGateway1" {
   resource_group = data.ibm_resource_group.group.id
   mode = "policy"
   provisioner "local-exec" {
-    command = "sleep 120"
+    command = "sleep 180"
   }
 }
 
@@ -125,7 +125,7 @@ resource "ibm_is_vpn_gateway" "VPNPeerGateway2" {
   resource_group = data.ibm_resource_group.group.id
   mode = "policy"
   provisioner "local-exec" {
-    command = "sleep 120"
+    command = "sleep 180"
   }
 }
 
