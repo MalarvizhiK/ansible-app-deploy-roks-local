@@ -32,7 +32,7 @@ data "ibm_is_zone" "zone" {
 # Provider block - Alias initialized tointeract with VNF Experiment account
 ##############################################################################
 provider "ibm" {
-  ibmcloud_api_key = "paU7Zc_ExTFuIYyG_F0sleDCiplbYJaZV6C_1rAWbLTN"
+  ibmcloud_api_key = ""
   generation            = var.generation
   region                = var.region
   ibmcloud_timeout      = 300
