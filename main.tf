@@ -104,6 +104,9 @@ resource "ibm_is_vpn_gateway" "VPNClientGateway" {
   subnet = data.ibm_is_subnet.client_subnet.id
   resource_group = data.ibm_resource_group.group.id
   mode = "policy"
+  provisioner "local-exec" {
+    command = "sleep 180"
+  }
 }
 
 resource "ibm_is_vpn_gateway" "VPNPeerGateway1" {
@@ -111,6 +114,9 @@ resource "ibm_is_vpn_gateway" "VPNPeerGateway1" {
   subnet = data.ibm_is_subnet.server_subnet1.id
   resource_group = data.ibm_resource_group.group.id
   mode = "policy"
+  provisioner "local-exec" {
+    command = "sleep 180"
+  }
 }
 
 resource "ibm_is_vpn_gateway" "VPNPeerGateway2" {
@@ -118,6 +124,9 @@ resource "ibm_is_vpn_gateway" "VPNPeerGateway2" {
   subnet = data.ibm_is_subnet.server_subnet2.id
   resource_group = data.ibm_resource_group.group.id
   mode = "policy"
+  provisioner "local-exec" {
+    command = "sleep 180"
+  }
 }
 
 resource "ibm_is_vpn_gateway_connection" "VPNClientGateway_Conn1" {
