@@ -132,7 +132,7 @@ resource "ibm_is_vpn_gateway" "VPNPeerGateway2" {
 resource "ibm_is_vpn_gateway_connection" "VPNClientGateway_Conn1" {
   name = "demo-think-peer-vpn-gw-conn1"
   vpn_gateway = ibm_is_vpn_gateway.VPNClientGateway.id
-  peer_address = ibm_is_vpn_gateway.VPNClientGateway.public_ip_address == "0.0.0.0" ? ibm_is_vpn_gateway.VPNClientGateway.public_ip_address2 : ibm_is_vpn_gateway.VPNClientGateway.public_ip_address
+  peer_address = ibm_is_vpn_gateway.VPNPeerGateway1.public_ip_address == "0.0.0.0" ? ibm_is_vpn_gateway.VPNPeerGateway1.public_ip_address2 : ibm_is_vpn_gateway.VPNPeerGateway1.public_ip_address
   local_cidrs = [data.ibm_is_subnet.client_subnet.ipv4_cidr_block] 
   peer_cidrs = [data.ibm_is_subnet.server_subnet1.ipv4_cidr_block] 
   preshared_key = "secret"
@@ -143,7 +143,7 @@ resource "ibm_is_vpn_gateway_connection" "VPNClientGateway_Conn1" {
 resource "ibm_is_vpn_gateway_connection" "VPNClientGateway_Conn2" {
   name = "demo-think-peer-vpn-gw-conn2"
   vpn_gateway = ibm_is_vpn_gateway.VPNClientGateway.id
-  peer_address = ibm_is_vpn_gateway.VPNPeerGateway2.public_ip_address
+  peer_address =  ibm_is_vpn_gateway.VPNPeerGateway2.public_ip_address == "0.0.0.0" ? ibm_is_vpn_gateway.VPNPeerGateway2.public_ip_address2 : ibm_is_vpn_gateway.VPNPeerGateway2.public_ip_address
   local_cidrs = [data.ibm_is_subnet.client_subnet.ipv4_cidr_block]
   peer_cidrs = [data.ibm_is_subnet.server_subnet2.ipv4_cidr_block]
   preshared_key = "secret"
