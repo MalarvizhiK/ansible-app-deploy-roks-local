@@ -2,6 +2,17 @@
 To run locally in your mac to configure a webapp in a ROKS cluster
 
 
+Before executing the ansible playbook:   
+
+1. Add account apikey in main.tf file   
+2. Add Cloudant apikey in roles/web/tasks/main.yml  
+3. Add RIAS API Key in think_demo_script.sh
+
+```
+export RIAS_API_KEY=""
+```
+
+
 ### Steps:  
 
 1. Login to IBM Cloud.   
