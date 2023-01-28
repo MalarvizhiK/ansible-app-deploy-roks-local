@@ -59,7 +59,7 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
 
-After the ansible playbook is executed, verify that the containers and service are created.
+4. After the ansible playbook is executed, verify that the containers and service are created.
 
 ``` 
 List all pods created:   
@@ -79,13 +79,15 @@ kubernetes                     ClusterIP      172.21.0.1       <none>           
 …
 
 ```
-Once the ALB is created, you can create the VPN gateways by running the terraform script as shown below. The terraform script needs the subnets of the client VSI in VPC2 and the load balancer service subnets in VPC. Based on the subnets, it creates the VPN gateway connection.
+5. Once the ALB is created, you can create the VPN gateways by running the terraform script as shown below. The terraform script needs the subnets of the client VSI in VPC2 and the load balancer service subnets in VPC. Based on the subnets, it creates the VPN gateway connection.
 
 ```
 malark@Malars-MacBook-Pro ansible-app-deploy-roks-local % terraform apply --var-file="terraform.tfvars" -auto-approve
 ```
 
 So far, we have deployed the 3 tier application. ALB is created. VPN gateways and its connections are provisioned between 2 VPCs. In order for the application to be highly available, the VPN gateway connection needs to be created in all the subnets where the ALB subnets exists. Since the ALB is an Active/Active Load Balancer, the Private IP of the load balancer keeps changing. Hence multiple VPN Gateways and connections pointing to multiple Private IPs of Load balancer needs to be created for the Client VSI in VPC2 to communicate with application in VPC1. 
+
+6. Login to a VSI in VPC2 and try to access th ALB Service in VPC1.   
 
 ```
 malark@Malars-MacBook-Pro ansible-app-deploy-roks-local % ssh root@52.xxx.xxx.xxx          
