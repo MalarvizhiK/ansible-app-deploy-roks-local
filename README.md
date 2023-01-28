@@ -57,6 +57,61 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
 
+```
+After the ansible playbook is executed, verify that the containers and service are created.
+
+``` 
+malark@Malars-MacBook-Pro ansible-app-deploy-roks-local % kubectl get pods          
+NAME                                   READY   STATUS    RESTARTS   AGE
+app-lb-deployment-697ccdd965-5qkpx     1/1     Running   0          91s
+app-lb-deployment-697ccdd965-9t5qp     1/1     Running   0          91s
+app-lb-deployment-697ccdd965-tgjmf     1/1     Running   0          91s
+
+
+malark@Malars-MacBook-Pro ansible-app-deploy-roks-local % kubectl get svc
+NAME                           TYPE           CLUSTER-IP       EXTERNAL-IP                            PORT(S)          AGE
+app-lb-service                 LoadBalancer   172.21.244.16    4612b855-us-south.lb.appdomain.cloud   8000:30990/TCP   42m
+kubernetes                     ClusterIP      172.21.0.1       <none>                                 443/TCP          49d
+…
+
+```
+Once the ALB is created, you can create the VPN gateways by running the terraform script as shown below. The terraform script needs the subnets of the client VSI in VPC2 and the load balancer service subnets in VPC. Based on the subnets, it creates the VPN gateway connection.
+
+```
+malark@Malars-MacBook-Pro ansible-app-deploy-roks-local % terraform apply --var-file="terraform.tfvars" -auto-approve
+```
+
+So far, we have deployed the 3 tier application. ALB is created. VPN gateways and its connections are provisioned between 2 VPCs. In order for the application to be highly available, the VPN gateway connection needs to be created in all the subnets where the ALB subnets exists. Since the ALB is an Active/Active Load Balancer, the Private IP of the load balancer keeps changing. Hence multiple VPN Gateways and connections pointing to multiple Private IPs of Load balancer needs to be created for the Client VSI in VPC2 to communicate with application in VPC1. 
+
+```
+malark@Malars-MacBook-Pro ansible-app-deploy-roks-local % ssh root@52.xxx.xxx.xxx          
+
+root@demo-think-peer-vsi:~# curl http://4612b855-us-south.lb.appdomain.cloud:8000
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show all employees</title>
+</head>
+<body>
+<h3>List of all employees</h3>
+
+<table border="1">
+    <tr>
+        <th align="center">Employee Id</th>
+		<th align="center">Name</th>
+    </tr>
+    
+    
+    
+    …
+    
+</table> 
+```
+
+The ansible and terraform scripts can be combined in a single shell script. If there are any application logic to fetch the subnets of ALB, this can be automated by using a python program. You can find the shell script for one-click deployment in the github repository. 
+
+
 4. List all pods created:   
 
 ```
