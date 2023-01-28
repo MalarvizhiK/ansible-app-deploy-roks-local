@@ -1,6 +1,8 @@
 # ansible-app-deploy-roks-local
-To run locally in your mac to configure a webapp in a ROKS cluster
 
+Git clone the repository and execute the ansible playbook. Under ansible roles directory, you will find that web and loadbalancer services are provided by user along with VPC subnet and region, Cloudant Database URL and API Key. Login to cloud, download the Kubernetes cluster config in your local system, and execute the ansible playbook to deploy application, and create ALB service. 
+
+To run locally in your mac to configure a webapp in a ROKS cluster
 
 Before executing the ansible playbook:   
 
